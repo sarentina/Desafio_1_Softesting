@@ -72,4 +72,6 @@ public class BasePages {
     public void clicarPagina(String locator){
         encontrarElementoXpath(locator).click();;
     }
+
+
 }

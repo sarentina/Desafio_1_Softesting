@@ -1,10 +1,12 @@
 package pages;
 
+
 public class AmazonSearchPages extends BasePages{
 
     private String barraBusqueda = "field-keywords"; //Selector por Nombre
     private String btnBuscar = "nav-search-submit-button"; //Selector por ID
     private String btnPagina2 = "//a[@aria-label='Ir a la página 2']";// Selector XPath
+    private String articulo3 = "/html/body/div[1]/div[1]/div[1]/div[1]/div/span[1]/div[1]/div[4]/div/div/span/div/div/div/div[2]/div/div/div[1]/a";
 
     public AmazonSearchPages(){
         super(driver);
@@ -34,4 +36,9 @@ public class AmazonSearchPages extends BasePages{
         clicarPagina(btnPagina2);
     }
 
+    //Metodo para seleccionar el tercer producto 
+
+    public void Seleccionarproducto3(){
+        clicarElementoXpath(articulo3);
+    }
 }

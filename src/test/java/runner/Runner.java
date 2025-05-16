@@ -13,6 +13,6 @@ public class Runner {
 
     @AfterClass
     public static void cleanDriver() {
-        // BasePages.closeBrowser();
+        // BasePages.cerrarNavegador();
     }
 }

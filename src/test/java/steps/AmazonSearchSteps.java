@@ -6,19 +6,25 @@ import pages.AmazonSearchPages;
 public class AmazonSearchSteps {
     private AmazonSearchPages Amazonpage = new AmazonSearchPages();
 
-   @Given ("^The user navegates to https://www.amazon.com/$")
+   @Given ("^el usuario navega a https://www.amazon.com/$")
     public void navegateToAmazon(){
         Amazonpage.navegateTo();
         Amazonpage.espera();
     }
 
-    @And ("^search for (.*)$") 
+    @And ("^busca el producto (.*)$") 
     public void buscarProductoLista(String producto){
         Amazonpage.buscarProducto(producto);
     }
     
-    @And ("^navigates to the second pages$")
+    @And ("^navega a la segunda pagina$")
     public void navegarPagina2(){
         Amazonpage.irPagina();
     }
+
+    @And ("^seleccionar el tercer articulo$")
+    public void seleccionarArticulo3(){
+        Amazonpage.Seleccionarproducto3();
+    }
+
 }
