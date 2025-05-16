@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
-import pages.BasePages;
+// import pages.BasePages;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources", glue = "steps", plugin = { "pretty", "html:target/cucumber-reports" })
@@ -13,6 +13,6 @@ public class Runner {
 
     @AfterClass
     public static void cleanDriver() {
-        BasePages.closeBrowser();
+        // BasePages.closeBrowser();
     }
 }

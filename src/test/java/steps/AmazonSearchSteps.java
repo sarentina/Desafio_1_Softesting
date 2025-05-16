@@ -12,4 +12,13 @@ public class AmazonSearchSteps {
         Amazonpage.espera();
     }
 
+    @And ("^search for (.*)$") 
+    public void buscarProductoLista(String producto){
+        Amazonpage.buscarProducto(producto);
+    }
+    
+    @And ("^navigates to the second pages$")
+    public void navegarPagina2(){
+        Amazonpage.irPagina();
+    }
 }
