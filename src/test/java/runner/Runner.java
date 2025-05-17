@@ -7,7 +7,16 @@ import io.cucumber.junit.CucumberOptions;
 // import pages.BasePages;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources", glue = "steps", plugin = { "pretty", "html:target/cucumber-reports" })
+@CucumberOptions(
+    features = "src/test/resources", 
+    glue = "steps",                
+    plugin = {
+        "pretty",
+        "html:reports.cucumber",             
+        "json:target/cucumber.json"           
+    },
+    monochrome = true
+)
 
 public class Runner {
 
