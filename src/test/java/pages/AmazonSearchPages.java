@@ -1,44 +1,77 @@
 package pages;
 
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeoutException;
 
-public class AmazonSearchPages extends BasePages{
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-    private String barraBusqueda = "field-keywords"; //Selector por Nombre
-    private String btnBuscar = "nav-search-submit-button"; //Selector por ID
-    private String btnPagina2 = "//a[@aria-label='Ir a la página 2']";// Selector XPath
-    private String articulo3 = "/html/body/div[1]/div[1]/div[1]/div[1]/div/span[1]/div[1]/div[4]/div/div/span/div/div/div/div[2]/div/div/div[1]/a";
+public class AmazonSearchPages extends BasePages {
 
-    public AmazonSearchPages(){
+    // Selectores claros y nombrados en camelCase
+    private final String searchBoxName = "field-keywords"; // Por name
+    private final String searchButtonId = "nav-search-submit-button"; // Por ID
+    private final String secondPageXPath = "//a[@aria-label='Ir a la página 2']"; // XPath
+    private final String thirdProductXPath = "//div[contains(@data-component-type, 's-search-result')][3]//a[contains(@class, 'a-link-normal') and contains(@class, 'a-text-normal')]"; // Mejora sobre tu XPath absoluto
+    By captchaInput = By.id("captchacharacters");
+
+    public AmazonSearchPages() {
         super(driver);
-
     }
-    
-    public void navegateTo(){
+
+    // Navegar a Amazon
+    public void navegarA() {
         navegateTo("https://www.amazon.com/");
+        esperarQueSeResuelvaCaptcha();
     }
 
-    public void espera() {
-        try {
-            Thread.sleep(15000); //pausa de 15 segundos
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    // Espera explícita opcional (mejor que Thread.sleep)
+    public void esperarCarga() {
+        esperarElementoPorNombre(searchBoxName, 15);
+    }
+
+    // Buscar producto en la barra de búsqueda
+    public void buscarProducto(String producto) {
+        escribirCampo(searchBoxName, producto);
+        clicarElementoId(searchButtonId);
+    }
+
+    // Navegar a la segunda página de resultados
+    public void navegarASegundaPagina() {
+        clicarPagina(secondPageXPath);
+    }
+
+    // Seleccionar el tercer producto de la lista
+    public void seleccionarTercerProducto() {
+        clicarElementoXpath(thirdProductXPath);
+    }
+
+    public void esperarQueSeResuelvaCaptcha() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(5));
+        By captchaInput = By.id("captchacharacters");
+    
+        if (isCaptchaPresent()) {
+            System.out.println("CAPTCHA detectado. Por favor resuélvelo manualmente...");
+    
+            // Espera hasta que el captcha ya no sea visible
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(captchaInput));
+    
+            System.out.println("CAPTCHA resuelto, continuando...");
+        } else {
+            System.out.println("No hay CAPTCHA, continúo normalmente.");
         }
     }
 
-    //Metodo para buscar producto 
-       public void buscarProducto(String busqueda){
-        escribirCampo(barraBusqueda, busqueda);
-        clicarElementoId(btnBuscar);
+    public boolean isCaptchaPresent() {
+        try {
+            return driver.findElement(captchaInput).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
+    
 
-      // Metodo para ir a una pagina 
-    public void irPagina(){
-        clicarPagina(btnPagina2);
-    }
-
-    //Metodo para seleccionar el tercer producto 
-
-    public void Seleccionarproducto3(){
-        clicarElementoXpath(articulo3);
-    }
 }
+

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePages {
 
-    protected static WebDriver driver;
+    public static WebDriver driver;
     // private static Actions action;
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -41,15 +41,15 @@ public class BasePages {
     }
 
     // Metodo para hallar un elemento por su selctor Id
-    private WebElement encontrarElementoId(String localizador) {
-
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.id(localizador)));
+    public WebElement encontrarElementoId(String localizador) {
+        return wait.until(ExpectedConditions.elementToBeClickable(By.id(localizador)));
     }
 
     //Metodo para encontrar un elemento por su nombre
     public WebElement encontrarElementoName(String localizador){
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.name(localizador)));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(localizador)));
     }
+    
 
 
     //  Clicar algun elemento con selector Id
@@ -64,14 +64,22 @@ public class BasePages {
 
     // Escribe en un campo de texto
     public void escribirCampo(String localizador, String busqueda){
-        encontrarElementoName(localizador).clear();
-        encontrarElementoName(localizador).sendKeys(busqueda);
+        WebElement elemento = encontrarElementoName(localizador);
+        elemento.clear();
+        elemento.sendKeys(busqueda);
     }
+    
 
     // Metodo para ir a la pagina de amazon por su XPath
     public void clicarPagina(String locator){
         encontrarElementoXpath(locator).click();;
     }
+
+        // Esperar a que un elemento por nombre esté presente
+        public void esperarElementoPorNombre(String nombre, int segundos) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.name(nombre)));
+        }
 
 
 }
