@@ -1,6 +1,6 @@
 # Desafío 1 - Automatización de Pruebas con Cucumber y Selenium
 
-Este proyecto es parte del curso de **Software Testing** y representa un ejercicio práctico de automatización de pruebas funcionales utilizando **Cucumber**, **Selenium WebDriver**, **Java 17** y herramientas complementarias.
+Este proyecto es parte del semillero de **Softesting** y representa un ejercicio práctico de automatización de pruebas funcionales utilizando **Cucumber**, **Selenium WebDriver**, **Java 17** y herramientas complementarias.
 
 ## Objetivo
 
